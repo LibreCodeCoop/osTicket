@@ -1,6 +1,18 @@
 <?php
 if(!defined('SETUPINC')) die('Kwaheri!');
-$info=($_POST && $errors)?Format::htmlchars($_POST):array('prefix'=>'ost_','dbhost'=>'localhost','lang_id'=>'en_US');
+
+$defaults = array(
+    'prefix' => getenv('OSTICKET_DB_PREFIX') ?: 'ost_',
+    'dbhost' => getenv('OSTICKET_DB_HOST') ?: 'localhost',
+    'dbname' => getenv('OSTICKET_DB_NAME') ?: '',
+    'dbuser' => getenv('OSTICKET_DB_USER') ?: '',
+    'dbpass' => getenv('OSTICKET_DB_PASS') ?: '',
+    'lang_id' => getenv('OSTICKET_DEFAULT_LANG') ?: 'en_US',
+);
+
+$info = ($_POST && $errors)
+    ? Format::htmlchars($_POST)
+    : $defaults;
 ?>
 <div id="main" class="step2">
     <h1><?php echo __('osTicket Basic Installation'); ?></h1>
